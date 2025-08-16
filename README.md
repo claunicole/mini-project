@@ -1,11 +1,11 @@
 # MiniProject
 
 
-## Install and setup dependencies
+## Install, setup dependencies, create database and run migrations
   mix setup
 
-## Create database and run migrations
-  mix ecto.setup 
+## Run server :mix phx.server
+  Visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Generator for patients
   mix phx.gen.html Clinic Patient patients first_name:string last_name:string phone:string birthdate:date email:string --web admin
@@ -30,10 +30,6 @@
         email: "admin@example.com",
         password: "supersecret123"
      })
-
-## Run server :mix phx.server
-  Visit [`localhost:4000`](http://localhost:4000) from your browser.
-
 
 ## Generators for API
 ### /api/patients
