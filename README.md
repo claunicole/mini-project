@@ -19,7 +19,9 @@
 ## Insert data
 ### run console: iex -S mix
   MiniProject.Clinic.loader_patients()
+  
   MiniProject.Clinic.loader_practitioners()
+  
   MiniProject.Clinic.loader_prescriptions()
 
 ## Create new user
