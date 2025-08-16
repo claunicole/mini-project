@@ -156,6 +156,18 @@ defmodule MiniProject.Clinic do
     Repo.all(Patient)
   end
 
+  def delete_practitioner(%Practitioner{} = practitioner) do
+    practitioner
+    |> Practitioner.delete_changeset()
+    |> Repo.delete()
+  end
+
+  def delete_patient(%Patient{} = patient) do
+    patient
+    |> Patient.delete_changeset()
+    |> Repo.delete()
+  end
+
   @doc """
   Gets a single patient.
 

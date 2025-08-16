@@ -17,6 +17,8 @@ defmodule MiniProject.Clinic.Practitioner do
     field :birthdate, :date
     field :email, :string
 
+    has_many :prescriptions, MiniProject.Clinic.Prescription, foreign_key: :practitioner_id
+
     timestamps(type: :utc_datetime)
   end
 
@@ -31,5 +33,11 @@ defmodule MiniProject.Clinic.Practitioner do
     |> update_change(:email, &String.trim/1)
     |> validate_format(:email, @email_rx)
     |> unique_constraint(:email)
+  end
+
+  def delete_changeset(%__MODULE__{} = practitioner) do
+    Ecto.Changeset.change(practitioner)
+    |> Ecto.Changeset.no_assoc_constraint(:prescriptions,
+        message: "no puede eliminarse porque tiene recetas asociadas")
   end
 end

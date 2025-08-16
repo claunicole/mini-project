@@ -57,11 +57,18 @@ defmodule MiniProjectWeb.Admin.PractitionerController do
   end
 
   def delete(conn, %{"id" => id}) do
-    practitioner = Clinic.get_practitioner!(id)
-    {:ok, _practitioner} = Clinic.delete_practitioner(practitioner)
+    practitioner = MiniProject.Clinic.get_practitioner!(id)
 
-    conn
-    |> put_flash(:info, "Practitioner deleted successfully.")
-    |> redirect(to: ~p"/admin/practitioners")
+    case MiniProject.Clinic.delete_practitioner(practitioner) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Médico eliminado correctamente.")
+        |> redirect(to: ~p"/admin/practitioners")
+
+      {:error, %Ecto.Changeset{}} ->
+        conn
+        |> put_flash(:error, "No se puede eliminar: el médico tiene recetas asociadas.")
+        |> redirect(to: ~p"/admin/practitioners/#{practitioner}")
+    end
   end
 end
