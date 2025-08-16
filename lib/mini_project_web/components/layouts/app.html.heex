@@ -27,6 +27,20 @@
 <main class="px-4 py-20 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />
+    <%= if assigns[:conn] && String.starts_with?(@conn.request_path || "", "/admin") do %>
+      <nav class="w-full bg-gray-900 text-white">
+        <div class="mx-auto max-w-7xl px-4">
+          <div class="flex items-center justify-between h-12">
+            <div class="flex items-center gap-6 text-sm">
+              <a href={~p"/admin"} class="font-semibold hover:text-gray-300">Admin</a>
+              <a href={~p"/admin/practitioners"} class="hover:text-gray-300">Médicos</a>
+              <a href={~p"/admin/patients"} class="hover:text-gray-300">Pacientes</a>
+              <a href={~p"/admin/prescriptions"} class="hover:text-gray-300">Recetas</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <% end %>
     {@inner_content}
   </div>
 </main>
