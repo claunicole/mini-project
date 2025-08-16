@@ -95,6 +95,14 @@ defmodule MiniProjectWeb do
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
+
+      import Phoenix.HTML
+      import Phoenix.Component
+      import MiniProjectWeb.CoreComponents
+      import Flop.Phoenix, except: [table: 1]
+
+      alias MiniProjectWeb.Router.Helpers, as: Routes
+      import MiniProjectWeb.Gettext
     end
   end
 

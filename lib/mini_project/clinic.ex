@@ -7,6 +7,69 @@ defmodule MiniProject.Clinic do
   alias MiniProject.Repo
   alias MiniProject.Clinic.{Patient, Practitioner, Prescription}
 
+   # ---------- Paginate for patients ----------
+
+  def paginate_patients(params \\ %{}) do
+    base =
+      from p in Patient,
+        select: p
+
+    base =
+      case Map.get(params, "q") do
+        nil -> base
+        "" -> base
+        q ->
+          like = "%#{String.trim(q)}%"
+          from p in base,
+            where: like(p.first_name, ^like) or like(p.last_name, ^like)
+      end
+
+    Flop.validate_and_run(base, params, for: Patient, repo: Repo)
+    # → {:ok, {records, meta}} | {:error, changeset}
+  end
+
+
+    # ---------- Paginate for practitioners ----------
+
+    def paginate_practitioners(params \\ %{}) do
+    base = from pr in Practitioner, select: pr
+
+    base =
+      case Map.get(params, "q") do
+        nil -> base
+        "" -> base
+        q ->
+          like = "%#{String.trim(q)}%"
+          from pr in base,
+            where: like(pr.first_name, ^like) or like(pr.last_name, ^like)
+      end
+
+    Flop.validate_and_run(base, params, for: Practitioner, repo: Repo)
+  end
+
+  # ---------- Paginate for prescriptions ----------
+
+  def paginate_prescriptions(params \\ %{}) do
+    base =
+      from r in Prescription,
+        as: :prescription,
+        left_join: p  in assoc(r, :patient),      as: :patient,
+        left_join: dr in assoc(r, :practitioner), as: :practitioner,
+        preload: [patient: p, practitioner: dr]
+
+    base =
+      case Map.get(params, "q") |> to_string() |> String.trim() do
+        "" -> base
+        q ->
+          pattern = "%#{String.downcase(q)}%"
+          from [prescription: _r, patient: p, practitioner: dr] in base,
+            where:
+              like(fragment("LOWER(CONCAT(?, ' ', ?))", p.first_name,  p.last_name),  ^pattern) or
+              like(fragment("LOWER(CONCAT(?, ' ', ?))", dr.first_name, dr.last_name), ^pattern)
+      end
+
+    Flop.validate_and_run(base, params, for: Prescription, repo: Repo)
+  end
 
   # ---------- Loaders for fake data ----------
 
