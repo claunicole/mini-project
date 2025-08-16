@@ -1,0 +1,19 @@
+<.header>
+  Patient {@patient.id}
+  <:subtitle>This is a patient record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/patients/#{@patient}/edit"}>
+      <.button>Edit patient</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="First name">{@patient.first_name}</:item>
+  <:item title="Last name">{@patient.last_name}</:item>
+  <:item title="Phone">{@patient.phone}</:item>
+  <:item title="Birthdate">{@patient.birthdate}</:item>
+  <:item title="Email">{@patient.email}</:item>
+</.list>
+
+<.back navigate={~p"/admin/patients"}>Back to patients</.back>

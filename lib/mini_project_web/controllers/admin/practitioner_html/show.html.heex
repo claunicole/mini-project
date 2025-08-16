@@ -1,0 +1,19 @@
+<.header>
+  Practitioner {@practitioner.id}
+  <:subtitle>This is a practitioner record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/practitioners/#{@practitioner}/edit"}>
+      <.button>Edit practitioner</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="First name">{@practitioner.first_name}</:item>
+  <:item title="Last name">{@practitioner.last_name}</:item>
+  <:item title="Phone">{@practitioner.phone}</:item>
+  <:item title="Birthdate">{@practitioner.birthdate}</:item>
+  <:item title="Email">{@practitioner.email}</:item>
+</.list>
+
+<.back navigate={~p"/admin/practitioners"}>Back to practitioners</.back>

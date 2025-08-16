@@ -1,0 +1,8 @@
+<.header>
+  Edit Practitioner {@practitioner.id}
+  <:subtitle>Use this form to manage practitioner records in your database.</:subtitle>
+</.header>
+
+<.practitioner_form changeset={@changeset} action={~p"/admin/practitioners/#{@practitioner}"} />
+
+<.back navigate={~p"/admin/practitioners"}>Back to practitioners</.back>

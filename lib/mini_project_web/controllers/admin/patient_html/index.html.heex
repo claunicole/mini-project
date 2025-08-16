@@ -1,0 +1,30 @@
+<div class="p-6 space-y-4">
+  <h1 class="text-xl font-semibold">Pacientes</h1>
+
+  <form method="get" action={~p"/admin/patients"} class="flex gap-2 items-center">
+    <input type="text" name="q" value={@q} placeholder="Buscar por nombre o apellido"
+           class="border rounded px-3 py-1 w-64" />
+    <button class="px-3 py-1 bg-gray-900 text-white rounded">Buscar</button>
+    <a href={~p"/admin/patients"} class="px-3 py-1 border rounded">Limpiar</a>
+  </form>
+
+  <div class="text-sm text-gray-600">
+    Orden:
+    <a class="underline mr-2"
+       href={~p"/admin/patients?#{[q: @q, order_by: ["last_name","first_name"], order_directions: ["asc","asc"]]}"}>
+      A → Z
+    </a>
+    <a class="underline"
+       href={~p"/admin/patients?#{[q: @q, order_by: ["last_name","first_name"], order_directions: ["desc","desc"]]}"}>
+      Z → A
+    </a>
+  </div>
+
+  <.table id="patients" rows={@patients} row_click={&JS.navigate(~p"/admin/patients/#{&1}")}>
+    <:col :let={p} label="Nombre"><%= p.first_name %> <%= p.last_name %></:col>
+    <:col :let={p} label="Email"><%= p.email %></:col>
+    <:col :let={p} label="Teléfono"><%= p.phone %></:col>
+  </.table>
+
+  <.pagination meta={@meta} path={~p"/admin/patients"} />
+</div>

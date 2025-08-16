@@ -1,0 +1,8 @@
+<.header>
+  Edit Prescription {@prescription.id}
+  <:subtitle>Use this form to manage prescription records in your database.</:subtitle>
+</.header>
+
+<.prescription_form changeset={@changeset} action={~p"/admin/prescriptions/#{@prescription}"} />
+
+<.back navigate={~p"/admin/prescriptions"}>Back to prescriptions</.back>

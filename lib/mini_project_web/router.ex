@@ -20,10 +20,13 @@ defmodule MiniProjectWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", MiniProjectWeb do
-  #   pipe_through :api
-  # end
+  scope "/admin", MiniProjectWeb.Admin, as: :admin do
+    pipe_through [:browser, :require_authenticated_user]
+    resources "/patients", PatientController
+    resources "/practitioners", PractitionerController
+    resources "/prescriptions", PrescriptionController, only: [:index, :show]
+  end
+  
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:mini_project, :dev_routes) do

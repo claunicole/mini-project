@@ -1,0 +1,37 @@
+<div class="p-6 space-y-4">
+  <h1 class="text-xl font-semibold">Recetas</h1>
+
+  <!-- Búsqueda por nombre de paciente o médico -->
+  <form method="get" action={~p"/admin/prescriptions"} class="flex gap-2 items-center">
+    <input type="text" name="q" value={@q} placeholder="Buscar por paciente o médico"
+           class="border rounded px-3 py-1 w-72" />
+    <button class="px-3 py-1 bg-gray-900 text-white rounded">Buscar</button>
+    <a href={~p"/admin/prescriptions"} class="px-3 py-1 border rounded">Limpiar</a>
+  </form>
+
+  <!-- Orden por nombre -->
+  <div class="text-sm text-gray-600">
+    Orden por:
+    <a class="underline mr-3"
+       href={~p"/admin/prescriptions?#{[q: @q, order_by: ["patient_name"], order_directions: ["asc"]]}"}>Paciente A→Z</a>
+    <a class="underline mr-3"
+       href={~p"/admin/prescriptions?#{[q: @q, order_by: ["patient_name"], order_directions: ["desc"]]}"}>Paciente Z→A</a>
+    <a class="underline mr-3"
+       href={~p"/admin/prescriptions?#{[q: @q, order_by: ["practitioner_name"], order_directions: ["asc"]]}"}>Médico A→Z</a>
+    <a class="underline"
+       href={~p"/admin/prescriptions?#{[q: @q, order_by: ["practitioner_name"], order_directions: ["desc"]]}"}>Médico Z→A</a>
+  </div>
+
+  <.table id="prescriptions" rows={@prescriptions} row_click={&JS.navigate(~p"/admin/prescriptions/#{&1}")}>
+    <:col :let={r} label="ID"><%= r.id %></:col>
+    <:col :let={r} label="Detalle"><%= r.detail %></:col>
+    <:col :let={r} label="Paciente">
+      <%= r.patient && "#{r.patient.first_name} #{r.patient.last_name}" %>
+    </:col>
+    <:col :let={r} label="Médico">
+      <%= r.practitioner && "#{r.practitioner.first_name} #{r.practitioner.last_name}" %>
+    </:col>
+  </.table>
+
+  <.pagination meta={@meta} path={~p"/admin/prescriptions"} />
+</div>

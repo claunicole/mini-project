@@ -1,0 +1,12 @@
+<div class="space-y-4">
+  <h2 class="text-xl font-semibold">Receta #<%= @prescription.id %></h2>
+  <p><span class="font-medium">Detalle:</span> <%= @prescription.detail %></p>
+  <p><span class="font-medium">Paciente:</span>
+    <%= @prescription.patient && "#{@prescription.patient.first_name} #{@prescription.patient.last_name}" %>
+  </p>
+  <p><span class="font-medium">Médico:</span>
+    <%= @prescription.practitioner && "#{@prescription.practitioner.first_name} #{@prescription.practitioner.last_name}" %>
+  </p>
+
+  <.back navigate={~p"/admin/prescriptions"}>Back to prescriptions</.back>
+</div>
