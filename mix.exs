@@ -32,6 +32,7 @@ defmodule MiniProject.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.7.21"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
@@ -57,7 +58,12 @@ defmodule MiniProject.MixProject do
       {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:httpoison, "~> 2.2"},
+      {:faker, "~> 0.18", only: [:dev, :test]},
+      {:flop, "~> 0.26.3"},
+      {:flop_phoenix, "~> 0.25.3"},
+      {:lazy_html, ">= 0.1.0", only: :test}
     ]
   end
 
