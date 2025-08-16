@@ -5,6 +5,13 @@
     <.link href={~p"/admin/practitioners/#{@practitioner}/edit"}>
       <.button>Edit practitioner</.button>
     </.link>
+
+    <.link
+      href={~p"/admin/practitioners/#{@practitioner}"}
+      method="delete"
+      data-confirm="¿Seguro que quieres eliminar este médico?">
+      <.button class="bg-red-600 hover:bg-red-700">Eliminar</.button>
+    </.link>
   </:actions>
 </.header>
 

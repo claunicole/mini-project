@@ -1,6 +1,11 @@
 <div class="p-6 space-y-4">
   <h1 class="text-xl font-semibold">Pacientes</h1>
 
+  <a href={~p"/admin/patients/new"}
+       class="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-600 text-white hover:bg-emerald-700">
+      + Nuevo paciente
+    </a>
+
   <form method="get" action={~p"/admin/patients"} class="flex gap-2 items-center">
     <input type="text" name="q" value={@q} placeholder="Buscar por nombre o apellido"
            class="border rounded px-3 py-1 w-64" />
