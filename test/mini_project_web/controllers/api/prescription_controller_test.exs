@@ -50,6 +50,19 @@ defmodule MiniProjectWeb.Api.PrescriptionControllerTest do
     end
   end
 
+  describe "create prescription edge cases" do
+    setup do
+      {:ok, patient: patient_fixture(), practitioner: practitioner_fixture()}
+    end
+
+    test "can't create when detail is too short", %{conn: conn, patient: patient, practitioner: practitioner} do
+      attrs = %{detail: "1234", patient_id: patient.id, practitioner_id: practitioner.id}
+
+      conn = post(conn, ~p"/api/prescriptions", prescription: attrs)
+      assert %{"detail" => [_ | _]} = json_response(conn, 422)["errors"]
+    end
+  end
+
   describe "update prescription" do
     setup [:create_prescription]
 
